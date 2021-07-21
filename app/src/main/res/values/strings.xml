@@ -8,8 +8,8 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="today">Сегодняшнее</string>
-    <string name="yasterday">Вчерашнее</string>
-    <string name="day_before_yasterday">Позавчерашнее</string>
+    <string name="yesterday">Вчерашнее</string>
+    <string name="day_before_yesterday">Позавчерашнее</string>
     <string name="picture_not_found">Картинка за указанную дату не найдена</string>
     <string name="mars_rover_photos">Снимки с марсохода</string>
     <string name="settings">Настройки</string>
@@ -24,4 +24,6 @@
     <string name="more">ещё</string>
     <string name="earth">Земля</string>
     <string name="mars">Марс</string>
+    <string name="photo_rover">Фото с марсохода</string>
+    <string name="info_rover"> Фото с марсохода %1$s \nСтатус: %2$s</string>
 </resources>

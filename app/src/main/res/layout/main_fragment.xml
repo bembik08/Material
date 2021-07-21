@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,15 +10,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.constraintlayout.motion.widget.MotionLayout
             android:id="@+id/main"
+            app:layoutDescription="@xml/motion_scene"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingStart="10dp"
             android:paddingEnd="10dp">
 
             <com.google.android.material.textfield.TextInputLayout
-
                 android:id="@+id/input_layout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
@@ -54,32 +55,25 @@
                 app:layout_constraintBottom_toTopOf="@id/image_view">
 
                 <com.google.android.material.chip.Chip
+                    android:id="@+id/chip1"
+                    app:layout_constraintHorizontal_chainStyle="spread"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/today" />
 
                 <com.google.android.material.chip.Chip
+                    android:id="@+id/chip2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/yasterday" />
+                    android:text="@string/yesterday" />
 
                 <com.google.android.material.chip.Chip
+                    android:id="@+id/chip3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/day_before_yasterday" />
+                    android:text="@string/day_before_yesterday" />
             </com.google.android.material.chip.ChipGroup>
 
-            <geekbarains.nasa.util.EquilateralImageView
-                android:id="@+id/image_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:contentDescription="@string/photo_of_the_day_stub"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/chip_group_day"
-                app:srcCompat="@drawable/ic_no_photo_vector" />
 
             <WebView
                 android:id="@+id/videoView1"
@@ -90,7 +84,19 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/chip_group_day" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <geekbrains.material.util.EquilateralImageView
+                android:id="@+id/image_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:contentDescription="@string/photo_of_the_day_stub"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/chip_group_day"
+                app:srcCompat="@drawable/ic_no_photo_vector" />
+        </androidx.constraintlayout.motion.widget.MotionLayout>
     </androidx.core.widget.NestedScrollView>
 
     <include
@@ -117,4 +123,3 @@
         app:srcCompat="@drawable/ic_wikipedia"
         app:tint="#FFFFFF" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
-

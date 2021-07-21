@@ -1,4 +1,4 @@
-package geekbarains.nasa
+package geekbarains.material
 
 import org.junit.Assert.assertEquals
 import org.junit.Test
