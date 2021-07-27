@@ -13,7 +13,7 @@ import java.io.IOException
 
 class RetrofitServices {
     companion object Factory {
-        const val API_KEY: String = BuildConfig.NASA_API_KEY
+        const val API_KEY: String = BuildConfig.BUILD_TYPE
         const val BASE_URL = "https://api.nasa.gov/"
         private var retrofit: NasaAPI? = null
         fun create(): NasaAPI {

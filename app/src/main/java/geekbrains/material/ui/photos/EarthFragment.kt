@@ -4,18 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
+import androidx.transition.ChangeBounds
+import androidx.transition.ChangeImageTransform
+import androidx.transition.TransitionManager
+import androidx.transition.TransitionSet
 import coil.load
-import geekbrains.material.model.Epic
 import geekbrains.material.R
-import geekbrains.material.ui.picture.EpicListData
-import geekbrains.material.ui.picture.PhotosViewModel
+import geekbrains.material.model.Epic
 import geekbrains.material.ui.picture.snackBarError
 import kotlinx.android.synthetic.main.fragment_earth.*
 
 open class EarthFragment : Fragment() {
+    private var isExpanded = false
     val viewModel: PhotosViewModel by lazy {
         ViewModelProvider(this).get(PhotosViewModel::class.java)
     }
@@ -33,7 +37,24 @@ open class EarthFragment : Fragment() {
 
     open fun init() {
         viewModel.getData().observe(viewLifecycleOwner, { renderData(it) })
-        but_more.setOnClickListener { setImageUrl(viewModel.getNextImage(), this) }
+        but_more.setOnClickListener {
+            setImageUrl(viewModel.getNextImage(), this)
+        }
+        img_photo.setOnClickListener {
+            isExpanded = !isExpanded
+            TransitionManager.beginDelayedTransition(
+                container1, TransitionSet()
+                    .addTransition(ChangeBounds())
+                    .addTransition(ChangeImageTransform())
+            )
+
+            val params: ViewGroup.LayoutParams = img_photo.layoutParams
+            params.height =
+                if (isExpanded) ViewGroup.LayoutParams.MATCH_PARENT else ViewGroup.LayoutParams.WRAP_CONTENT
+            img_photo.layoutParams = params
+            img_photo.scaleType =
+                if (isExpanded) ImageView.ScaleType.CENTER_CROP else ImageView.ScaleType.FIT_CENTER
+        }
     }
 
     protected fun setImageUrl(url: String, earthFragment: Fragment) {
@@ -47,12 +68,11 @@ open class EarthFragment : Fragment() {
     open fun getUrl(epicListData: EpicListData.Success<*>) =
         viewModel.getUrlForImage(epicListData.serverResponseData[0] as Epic)
 
-
     protected fun renderData(data: EpicListData) {
         when (data) {
             is EpicListData.Success<*> -> {
                 progressCircleDeterminate.visibility = View.GONE
-                onDataSuccess(data)
+                data.onDataSuccess()
             }
             is EpicListData.Loading -> {
                 progressCircleDeterminate.visibility = View.VISIBLE
@@ -69,7 +89,7 @@ open class EarthFragment : Fragment() {
         }
     }
 
-    open fun onDataSuccess(epicListData: EpicListData.Success<*>) {
-        setImageUrl(getUrl(epicListData), this)
+    open fun EpicListData.Success<*>.onDataSuccess() {
+        setImageUrl(getUrl(this), this@EarthFragment)
     }
 }

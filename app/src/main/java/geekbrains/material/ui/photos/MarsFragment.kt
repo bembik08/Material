@@ -40,8 +40,8 @@ class MarsFragment : EarthFragment() {
     override fun getUrl(epicListData: EpicListData.Success<*>) =
         (epicListData.serverResponseData[0] as Mars).img_src
 
-    override fun onDataSuccess(epicListData: EpicListData.Success<*>) {
-        setImageUrl(getUrl(epicListData), this)
-        setInfoText(epicListData.serverResponseData[0] as Mars)
+    override fun EpicListData.Success<*>.onDataSuccess() {
+        setImageUrl(getUrl(this), this@MarsFragment)
+        setInfoText(serverResponseData[0] as Mars)
     }
 }

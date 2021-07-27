@@ -1,4 +1,4 @@
-package geekbrains.material.ui.picture
+package geekbrains.material.ui.settings
 
 import androidx.lifecycle.ViewModel
 

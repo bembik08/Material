@@ -1,5 +1,6 @@
 package geekbrains.material.ui.picture
 
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -15,23 +16,24 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import coil.load
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
-import geekbrains.material.model.ApodData
-import geekbrains.material.ui.photos.PhotosActivity
-import geekbrains.material.ui.settings.SettingsFragment
 import geekbrains.material.R
 import geekbrains.material.databinding.MainFragmentBinding
+import geekbrains.material.model.ApodData
 import geekbrains.material.ui.MainActivity
+import geekbrains.material.ui.photos.PhotosActivity
+import geekbrains.material.ui.settings.SettingsFragment
 import kotlinx.android.synthetic.main.main_fragment.*
 import retrofit2.HttpException
 
 fun View.snackBarError(string: String) {
-    var sb = Snackbar.make(
+    val sb = Snackbar.make(
         this,
         "${resources.getString(R.string.error)} : $string",
         Snackbar.LENGTH_LONG
     )
-    sb.view.setBackgroundColor(ContextCompat.getColor(context, R.color.red));
+    sb.view.setBackgroundColor(ContextCompat.getColor(context, R.color.red))
     sb.show()
 }
 
@@ -44,7 +46,7 @@ class ApodFragment : Fragment() {
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
     private val WIKI_URL = "https://en.wikipedia.org/wiki/"
-    private var searchLayoutVisible = false;
+    private var searchLayoutVisible = false
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -68,6 +70,9 @@ class ApodFragment : Fragment() {
             })
         }
         binding.chipGroupDay.setOnCheckedChangeListener { group, checkedId ->
+            ObjectAnimator.ofFloat(view.findViewById<Chip>(checkedId), "rotation", 5f, -5f, 0f)
+                .setDuration(300)
+                .start()
             viewModel.getData(
                 when (checkedId) {
                     R.id.chip1 -> 1
@@ -87,9 +92,9 @@ class ApodFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.app_bar_settings -> requireActivity().supportFragmentManager?.beginTransaction()
+            R.id.app_bar_settings -> requireActivity().supportFragmentManager.beginTransaction()
                 ?.replace(R.id.container, SettingsFragment.newInstance())
-                ?.addToBackStack(null)?.commit()
+                ?.addToBackStack(null).commit()
             R.id.app_bar_photos ->
                 requireActivity().let { startActivity(Intent(it, PhotosActivity::class.java)) }
             android.R.id.home -> {
@@ -144,13 +149,12 @@ class ApodFragment : Fragment() {
     }
 
     private fun showVideo(url: String, height: Int) {
-        videoView1.getSettings().setJavaScriptEnabled(true)
-        videoView1.getSettings().setPluginState(PluginState.ON)
+        videoView1.settings.javaScriptEnabled = true
+        videoView1.settings.pluginState = PluginState.ON
         videoView1.loadUrl(url)
-        videoView1.setWebChromeClient(WebChromeClient())
-        videoView1.setLayoutParams(
+        videoView1.webChromeClient = WebChromeClient()
+        videoView1.layoutParams =
             ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height)
-        )
     }
 
     private fun setBottomAppBar(view: View) {
