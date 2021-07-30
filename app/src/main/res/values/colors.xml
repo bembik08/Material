@@ -9,7 +9,6 @@
     <color name="chip_stroke">#D62316</color>
     <color name="chip_background">#DF665D</color>
     <color name="ripple">#FF1100</color>
-
     <color name="t2_colorPrimary">#5DF463</color>
     <color name="t2_colorPrimaryDark">#138C18</color>
     <color name="t2_colorAccent">#1E6A21</color>
@@ -22,4 +21,5 @@
     <color name="black_theme">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="red">#FF1100</color>
+    <color name="black">#000000</color>
 </resources>
