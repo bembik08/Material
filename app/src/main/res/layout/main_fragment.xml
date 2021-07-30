@@ -56,7 +56,6 @@
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip1"
-                    app:layout_constraintHorizontal_chainStyle="spread"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/today" />
@@ -65,7 +64,8 @@
                     android:id="@+id/chip2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/yesterday" />
+                    android:text="@string/yesterday"
+                    app:layout_constraintHorizontal_chainStyle="spread"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip3"
