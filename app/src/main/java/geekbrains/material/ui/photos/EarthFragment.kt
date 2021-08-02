@@ -36,7 +36,7 @@ open class EarthFragment : Fragment() {
     }
 
     open fun init() {
-        viewModel.getData().observe(viewLifecycleOwner, { renderData(it) })
+        with(viewModel) { getData().observe(viewLifecycleOwner, { renderData(it) }) }
         but_more.setOnClickListener {
             setImageUrl(viewModel.getNextImage(), this)
         }
